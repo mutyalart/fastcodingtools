@@ -5,7 +5,7 @@
 <!-- *********************************************************************** -->
 	<!-- change this value to the name of the application -->
 	<property name="sge.name" value="fastcodingtools"/>
-	<property name="version" value="1.0"/>
+	<property name="version" value="0.1"/>
 	<!-- set global properties for this build -->
 	<property name="src" location="src" />
 	<property name="test" location="test" />
