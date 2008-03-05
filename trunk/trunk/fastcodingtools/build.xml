@@ -1,0 +1,163 @@
+<project name="fastcodingtools" default="dist" basedir=".">
+
+<!-- *********************************************************************** -->
+<!--	                           PROPERTIES                                -->
+<!-- *********************************************************************** -->
+	<!-- change this value to the name of the application -->
+	<property name="sge.name" value="fastcodingtools"/>
+	<property name="version" value="1.0"/>
+	<!-- set global properties for this build -->
+	<property name="src" location="src" />
+	<property name="test" location="test" />
+	<property name="build" location="bin" />
+	<property name="dist" location="dist" />
+	<property name="dist.lib" value="lib" />
+	<property name="javadoc" location="javadoc" />
+	<property name="metricas" location="metricas" />
+	<property name="lib" location="C:/miguelangelo/desenvolvimento/cvs_home/projetos/chesf/fabrica/repository/lib" />
+	<property name="main.class" value="br.com.fabricadotnet.sge.gestor.Main"/>
+	<property name="javadoc.package.names" value="com.fastcodingtools.*"/>
+
+
+
+<!-- *********************************************************************** -->
+<!--	                     CLASS PATH DEFINITIONS                          -->
+<!-- *********************************************************************** -->
+	<path id="class.path">
+		<fileset dir="${lib}">
+			<include name="**/*.jar"/>
+		</fileset>
+	</path>
+
+	<!-- convert the libraries to be included in the
+	  Class-Path attribute of the MANIFEST.MF file -->
+	<pathconvert property="manifest.classpath" pathsep=" ${dist.lib}/">
+	  <path refid="class.path"/>
+	  <flattenmapper/>
+	</pathconvert>
+
+<!-- *********************************************************************** -->
+<!--	                        TASKS DEFINITIONS                            -->
+<!-- *********************************************************************** -->
+	<!--
+	<taskdef name="java2html"
+ 	    classname="de.java2html.anttasks.Java2HtmlTask">
+ 		<classpath refid="class.path"/>
+ 	</taskdef>
+	-->
+<!-- *********************************************************************** -->
+<!--	                              TARGETS                                -->
+<!-- *********************************************************************** -->
+	<target name="init">
+		<!-- Create the time stamp -->
+		<tstamp />
+		<!-- Create the build directory structure used by compile -->
+		<mkdir dir="${build}"/>
+		<mkdir dir="${dist}"/>
+		<mkdir dir="${metricas}"/>
+	</target>
+
+	<target name="clean">
+		<delete dir="${build}"/>
+		<delete dir="${dist}"/>
+		<delete dir="${metricas}"/>
+	</target>
+
+	<target name="compile"
+			depends="init"
+			description="compile the source ">
+		<javac 	destdir="${build}"
+				deprecation="yes"
+				encoding="iso-8859-1"
+				debug="true"
+			    optimize="true"
+				target="1.5"
+				source="1.5"
+				compiler="javac1.5">
+				<classpath refid="class.path"/>
+				<src path="${src}"/>
+				<src path="${test}"/>
+		</javac>
+		<copy todir="${build}">
+			<fileset dir="${src}">
+				<exclude name="**/*.java"/>
+			</fileset>
+			<fileset dir="${test}">
+				<exclude name="**/*.java"/>
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="dist-clean-all"
+			depends="clean,dist"
+			description="generate the distribution"/>
+
+	<target name="dist"
+			depends="compile"
+			description="generate the distribution">
+		<!-- Create the distribution directory -->
+		 <mkdir dir="${dist}/${dist.lib}" />
+		  <copy todir="${dist}/${dist.lib}">
+		    <fileset dir="${lib}"/>
+		  </copy>
+		  <jar destfile="${dist}/${sge.name}-${version}.jar"
+			   basedir="${build}"
+			   excludes="**/Test.class"
+		  	   index="yes">
+		  	
+		  	<!--
+		    <manifest>
+		        <attribute name="Built-By" value="${user.name}"/>
+		        <attribute name="Implementation-Title" value="${sge.name}"/>
+		        <attribute name="Implementation-Version" value="${version} ${TODAY}"/>
+		        <attribute name="Implementation-Vendor" value="Fast Coding Tools"/>
+		    	<attribute name="Main-Class" value="${main.class}"/>
+		    	<attribute name="Class-Path" value="${dist.lib}/${manifest.classpath}"/>
+		    </manifest>
+		    -->
+		  </jar>
+
+
+	</target>
+
+	 <target name="generate-javadoc" depends="compile">
+
+	 	  <delete dir="${javadoc}"/>
+
+	 	  <mkdir dir="${javadoc}"/>
+	 	  <javadoc packagenames="${javadoc.package.names}"
+	 	           sourcepath="${src}"
+	 	           defaultexcludes="yes"
+	 	           destdir="${javadoc}"
+	 	           author="true"
+	 	           version="true"
+	 	           use="true"
+	 	           windowtitle="${sge.name} API"
+	 	  	       link="http://java.sun.com/j2se/1.5.0/docs/api/"
+	 	  		   linksource="yes">
+	 	  	<classpath refid="class.path"/>
+	 	    <doctitle><![CDATA[<h1>${sge.name}</h1>]]></doctitle>
+	 	    <bottom><![CDATA[<i>Copyright &#169; 2006 Fast Coding Tools. All Rights Reserved.</i>]]></bottom>
+	 	    <tag name="todo" scope="all" description="To do:"/>
+	 	  </javadoc>
+
+	      <java2html
+		 	     srcdir="${src}"
+		 	     destdir="${javadoc}/src-html"
+	             includes="**/*.java"
+	             outputFormat="html"
+	             tabs="2"
+	             style="eclipse"
+	             showLineNumbers="true"
+	             showFileName="true"
+	             useShortFileName="true"
+	             showTableBorder="true"
+	             includeDocumentHeader="true"
+	             includeDocumentFooter="true"
+		 		 addLineAnchors="true"
+		 		 overwrite="true"
+	             />
+
+	 </target>
+
+</project>
