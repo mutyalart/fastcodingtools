@@ -33,7 +33,7 @@
 	<property name="dist.lib" value="lib" />
 	<property name="javadoc" location="javadoc" />
 	<property name="metricas" location="metricas" />
-	<property name="lib" location="C:/miguelangelo/desenvolvimento/cvs_home/projetos/chesf/fabrica/repository/lib" />
+	<property name="lib" location="C:/repository" />
 	<property name="main.class" value="br.com.fabricadotnet.sge.gestor.Main"/>
 	<property name="javadoc.package.names" value="com.fastcodingtools.*"/>
 
@@ -58,12 +58,12 @@
 <!-- *********************************************************************** -->
 <!--	                        TASKS DEFINITIONS                            -->
 <!-- *********************************************************************** -->
-	<!--
+	
 	<taskdef name="java2html"
  	    classname="de.java2html.anttasks.Java2HtmlTask">
  		<classpath refid="class.path"/>
  	</taskdef>
-	-->
+	
 <!-- *********************************************************************** -->
 <!--	                              TARGETS                                -->
 <!-- *********************************************************************** -->
@@ -156,7 +156,7 @@
 	 	  		   linksource="yes">
 	 	  	<classpath refid="class.path"/>
 	 	    <doctitle><![CDATA[<h1>${sge.name}</h1>]]></doctitle>
-	 	    <bottom><![CDATA[<i>Copyright &#169; 2006 Fast Coding Tools. All Rights Reserved.</i>]]></bottom>
+	 	    <bottom><![CDATA[<i>Copyright &#169; 2006 Fast Coding Tools - Miguel Ângelo. All Rights Reserved.</i>]]></bottom>
 	 	    <tag name="todo" scope="all" description="To do:"/>
 	 	  </javadoc>
 
