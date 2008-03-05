@@ -1,0 +1,52 @@
+
+
+
+		/*
+		 * Classe com.fastcodingtools.util.XMLBindingUtils tem 4 métodos estáticos.
+		 * 
+		 *  Os métodos mais, segundo o que você me disse, serão
+		 *  bindingToFile e unbinding.
+		 *  
+		 *  O nome do jar do framework que estou mandando é fastcodingtools.jar :)
+		 *  junto com ele vem um diretório lib com as dependências.
+		 *  
+		 *  Ainda está um pouco grande pois não separei todas as dependências 
+		 *  que possam estar obsoletas.
+		 *  
+		 *  Qualquer dúvida é só falar.
+		 *  
+		 */
+		
+		Objeto objeto = new Objeto("a","b","c","d");
+		/*
+		 * bindingToFile(filePath, object);
+		 * 
+	     * Transforma o objeto para sua representação em xml, e retorna objeto string
+	     * com essa representação, além de gravar essa string no arquivo especificado.
+		 */
+		XMLBindingUtils.bindingToFile("C:/teste/objeto.xml", objeto);
+		
+		/*
+		 * unbinding(filePath);
+		 * 
+		 * Método responsável por instanciar um objeto a partir de sua representação
+		 * em xml em um arquivo.
+		 */
+		Objeto objeto2 = (Objeto) XMLBindingUtils.unbinding("C:/teste/objeto.xml");
+		
+		
+		/*
+		 * binding(object)
+		 * 
+	     * Transforma o objeto para sua representação em xml, e retorna objeto string
+	     * com essa representação.
+		 */
+		String objetoXml = XMLBindingUtils.binding(objeto);
+		
+		/*
+		 * unbindingFromString(objetoXml)
+		 * 
+		 * Método responsável por instanciar um objeto a partir de sua representação
+		 * em xml.
+		 */
+		Objeto objeto3 = (Objeto) XMLBindingUtils.unbindingFromString(objetoXml);	
