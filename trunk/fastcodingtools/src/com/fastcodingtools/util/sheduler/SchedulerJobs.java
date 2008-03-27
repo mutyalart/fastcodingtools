@@ -68,29 +68,62 @@ public class SchedulerJobs {
 		}
 	}
 
-	public void shedule(String name,
-					    String group,
-					    Class<? extends Job> jobClass,
-					    HashMap<String, Object> parameters,
-					    long repeatInterval) {
 
+	public void sheduleUniqueJob(String name,
+							    String group,
+							    Class<? extends Job> jobClass,
+							    HashMap<String, Object> parameters) {
+
+
+		//começa a executar no segunto seguinte ao start
+		Date startTime = TriggerUtils.getEvenSecondDate(new Date());
+		
+		shedule(name, 
+				group, 
+				jobClass, 
+				parameters, 
+				0, 
+				startTime, null, 
+				SimpleTrigger.MISFIRE_INSTRUCTION_FIRE_NOW);
+	}	
+	
+	public void sheduleRepetitiveJob(String name,
+								    String group,
+								    Class<? extends Job> jobClass,
+								    HashMap<String, Object> parameters,
+								    long repeatInterval) {
+
+
+		//começa a executar no segunto seguinte ao start
+		Date startTime = TriggerUtils.getEvenSecondDate(new Date());
+		int repeatMode = SimpleTrigger.REPEAT_INDEFINITELY;		
+		
+		shedule(name, group, jobClass, parameters, repeatInterval, startTime, null, repeatMode);
+	}
+
+	public void shedule(String name, 
+						String group, 
+						Class<? extends Job> jobClass, 
+						HashMap<String, Object> parameters,
+						long repeatInterval, 
+						Date startTime, 
+						Date endTime,
+						int repeatMode) {
+		
 		try {
-
-			//começa a executar no segunto seguinte ao start
-			Date runTime = TriggerUtils.getEvenSecondDate(new Date());
+			
 			JobDetail jobDetail = new JobDetail(name, group, jobClass);
 			jobDetail.getJobDataMap().putAll(parameters);
 
 			SimpleTrigger trigger = new SimpleTrigger(	name + "Trigger",
 														group,
-														runTime,
-														null,
-														SimpleTrigger.REPEAT_INDEFINITELY,
+														startTime,
+														endTime,
+														repeatMode,
 														repeatInterval);
 
 
 			jobs.put(jobDetail.getFullName(), new Object[] {jobDetail,trigger});
-			//sched.scheduleJob(jobDetail, trigger);
 		} catch (Exception e) {
 			logger.log(LogFastLevel.LOGFAST,e.getMessage(),e);
 		}
