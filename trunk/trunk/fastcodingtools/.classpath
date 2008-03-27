@@ -28,5 +28,6 @@
 	<classpathentry kind="lib" path="C:/Documents and Settings/miguel/.m2/repository/commons-beanutils/commons-beanutils/1.7.0/commons-beanutils-1.7.0.jar"/>
 	<classpathentry kind="lib" path="C:/Documents and Settings/miguel/.m2/repository/commons-beanutils/commons-beanutils-core/1.7.0/commons-beanutils-core-1.7.0.jar"/>
 	<classpathentry kind="lib" path="C:/Documents and Settings/miguel/.m2/repository/log4j/log4j/1.2.14/log4j-1.2.14.jar"/>
+	<classpathentry kind="lib" path="C:/Documents and Settings/miguel/.m2/repository/java2html.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
