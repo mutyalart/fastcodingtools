@@ -24,6 +24,7 @@ import java.lang.reflect.Method;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Set;
 import java.util.StringTokenizer;
 
@@ -237,6 +238,21 @@ public class FastPropertyUtils {
 		return object;
 	}
 
+	
+	public static HashMap<String, Object> createBeanMap(Object object){
+		
+		BeanMap cgLibBeanMap = BeanMap.create(object);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		String key;
+		for (Iterator iterator = cgLibBeanMap.keySet().iterator(); iterator.hasNext();) {
+			key = (String)iterator.next();
+			map.put(key, cgLibBeanMap.get(key));
+		}
+		
+		return map;
+	}
+	
 
 	public static void setNestedProperty(Object object,
 										 String attributeName,

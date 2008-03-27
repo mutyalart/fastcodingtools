@@ -536,7 +536,7 @@ public class FileUtils {
 	public static String getFileTextContent(String path) throws IOException{
 		
 		
-		StringBuilder content = new StringBuilder();;
+		StringBuilder content = new StringBuilder();
 		
 		try {
 			RandomAccessFile ranFile = new RandomAccessFile(path,"r");
